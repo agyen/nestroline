@@ -6,7 +6,13 @@ import { Hero } from '@/components/sections/Hero';
 import { Services } from '@/components/sections/Services';
 import { About } from '@/components/sections/About';
 import { Contact } from '@/components/sections/Contact';
-import { PostHogProvider } from 'posthog-js/react';
+import dynamic from 'next/dynamic';
+// import { PostHogProvider } from 'posthog-js/react';
+
+const PostHogProvider = dynamic(
+  () => import('posthog-js/react').then(mod => mod.PostHogProvider),
+  { ssr: false }
+);
 
 const options = {
   api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || '',
